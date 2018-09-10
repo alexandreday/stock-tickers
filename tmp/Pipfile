@@ -11,8 +11,8 @@ numpy = "*"
 bokeh = "*"
 requests = "*"
 Flask = "*"
-pandas_datareader = "*"
 fix_yahoo_finance = "*"
+#pandas_datareader=git+https://github.com/pydata/pandas-datareader
 
 
 [requires]
