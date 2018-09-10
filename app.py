@@ -41,7 +41,9 @@ def create_figure(stock_ticker):
 @app.route('/')
 
 def index():
-    print("hello")
+
+    # get ticker from user here ..
+
     plot = create_figure('AAPL')
 
 	# Embed plot into HTML via Flask Render
