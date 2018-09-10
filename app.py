@@ -11,7 +11,7 @@ from bokeh.plotting import figure, show, output_file
 from pandas_datareader import data as pdr
 import fix_yahoo_finance
 
-app = Flask()
+app = Flask(__name__)
 
 # Load the Iris Data Set
 """ iris_df = pd.read_csv("data/iris.data", 
