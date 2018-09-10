@@ -11,6 +11,9 @@ numpy = "*"
 bokeh = "*"
 requests = "*"
 Flask = "*"
+pandas_datareader = "*"
+fix_yahoo_finance = "*"
+
 
 [requires]
 python_version = "3.6"
