@@ -38,20 +38,30 @@ def create_figure(stock_ticker):
 
     return p1
 
-@app.route('/')
+app_lulu={}
+@app.route('/', methods=['GET','POST'])
 
 def index():
-
+    return render_template('userinfo_lulu.html')
     # get ticker from user here ..
+    """ if request.method == 'GET':
+        return render_template('userinfo_lulu.html') """
+    """     else:
+        app_lulu.vars['stock_name'] = request.form['stock_name']
+        plot = create_figure(app_lulu['stock_name'])
+        script, div = components(plot)
+        return render_template("stockinfo_lulu.html", script=script, div=div) """
 
-    plot = create_figure('AAPL')
-
-	# Embed plot into HTML via Flask Render
+app_lulu={}
+@app.route('/next_lulu', methods=['GET','POST'])
+def next_lulu():  #remember the function name does not need to match the URL
+    app_lulu['stock_name'] = request.form['stock_name']
+    plot = create_figure(app_lulu['stock_name'])
     script, div = components(plot)
-
-    return render_template("userinfo_lulu.html", script=script, div=div)
+    return render_template("stockinfo_lulu.html", script=script, div=div)
 
 # With debug=True, Flask server will auto-reload 
 # when there are code changes
 if __name__ == "__main__":
-    app.run(port=33507)#debug=True)
+    #app.run(port=#debug=True)33507)
+    app.run(debug=True)
