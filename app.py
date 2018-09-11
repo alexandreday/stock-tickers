@@ -18,15 +18,18 @@ app = Flask(__name__)
     names=["Sepal Length", "Sepal Width", "Petal Length", "Petal Width", "Species"])
 feature_names = iris_df.columns[0:-1].values.tolist() """
 
-def create_figure(stock_ticker):
+def create_figure(stock_info):
+    stock_ticker = stock_info['stock_name']
+
+    kind = stock_info['price_kind']
 
     data = pdr.get_data_yahoo(stock_ticker, start='2017-09-10', end='2018-09-10')
 
-    p=figure(plot_width=400, plot_height=400)
+    p=figure(plot_width=800, plot_height=400)
 
     tools= "hover,crosshair, pan, reset, box_zoom, tap"
     
-    p1 = figure(x_axis_type="datetime", title="Stock Closing Prices", tools=tools)
+    p1 = figure(x_axis_type="datetime", title=kind, tools=tools)
     
     p1.grid.grid_line_alpha=0.3
     
@@ -34,7 +37,7 @@ def create_figure(stock_ticker):
 
     p1.yaxis.axis_label = 'Price'
 
-    p1.line(data.index,data['High'], color='#A6CEE3', legend=stock_ticker)
+    p1.line(data.index, data[kind], color='#A6CEE3', legend=stock_ticker)
 
     return p1
 
@@ -56,7 +59,8 @@ app_lulu={}
 @app.route('/next_lulu', methods=['GET','POST'])
 def next_lulu():  #remember the function name does not need to match the URL
     app_lulu['stock_name'] = request.form['stock_name']
-    plot = create_figure(app_lulu['stock_name'])
+    app_lulu['price_kind'] = request.form['gender']
+    plot = create_figure(app_lulu)
     script, div = components(plot)
     return render_template("stockinfo_lulu.html", script=script, div=div)
 
